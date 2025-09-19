@@ -1,25 +1,33 @@
-from django.shortcuts import render
+from django.urls import reverse
 
 from catalog.models import Products
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 # Create your views here.
 
-def home(request):
-    return render(request, 'home.html')
+class ProductListView(ListView):
+    model = Products
 
 
-def contacts(request):
-    return render(request, 'contacts.html')
+class ProductDetailView(DetailView):
+    model = Products
 
 
-def base(request):
-    goods = Products.objects.all()
-    context = {'goods': goods}
-    return render(request, 'goods.html', context)
+class ProductCreateView(CreateView):
+    model = Products
+    fields = ('name', 'category', 'price', 'image', 'description')
+    success_url = reverse_lazy('catalog:products_list')
 
 
-def product(request, pk):
-    prod = Products.objects.get(pk=pk)
-    context = {'product': prod}
-    return render(request, 'product.html', context)
+class ProductUpdateView(UpdateView):
+    model = Products
+    fields = ('name', 'price', 'description')
+    success_url = reverse_lazy('catalog:products_list')
+
+
+class ProductDeleteView(DeleteView):
+    model = Products
+    success_url = reverse_lazy('catalog:products_list')

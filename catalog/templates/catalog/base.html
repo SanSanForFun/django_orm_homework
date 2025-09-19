@@ -12,17 +12,23 @@
 </head>
 <body>
 <header data-bs-theme="dark">
-{% include 'navbar.html' %}
+    {% include 'catalog/navbar.html' %}
 </header>
 <main>
     <section class="py-4 text-center container">
         <div class="row py-lg-1">
-            <div class="col-lg-4 col-md-6 mx-auto"><h1 class="fw-light">Товары</h1>
-                <p class="lead text-body-secondary">Информация о товарах</p></div>
+            <div class="col-lg-4 col-md-6 mx-auto">
+                <h1 class="fw-light">Товары</h1>
+                <p class="lead text-body-secondary">Информация о товарах</p>
+                <p>
+                    <a class="btn btn-primary" href="{% url 'catalog:products_create' %}" role="button">Создать
+                        продукт</a>
+                </p>
+            </div>
         </div>
     </section>
-{% block content %}
-{% endblock %}
+    {% block content %}
+    {% endblock %}
 </main>
 <footer class="text-body-secondary py-5">
     <div class="container"><p class="float-end mb-1"><a href="#">Back to top</a></p>
