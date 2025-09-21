@@ -10,9 +10,10 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 class BlogListView(ListView):
     model = Blog
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(views_counter__gt=1)
+    # Для отображения метода убрать "#"
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     return queryset.filter(publication_indicator=False)
 
 
 class BlogDetailView(DetailView):
