@@ -12,8 +12,8 @@
                 <div class="modal-body py-0">
                     <p>Вы действительно хотите удалить статью: "{{ object.title }}"?</p>
                     <div class="card-body">
-                    {% csrf_token %}
-                    {{ form.as_p }}
+                        {% csrf_token %}
+                        {{ form.as_p }}
                     </div>
                 </div>
                 <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
