@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'blog/blog_detail.html' %}
+{% block content %}
+<div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog"
+     id="modalSheet">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 shadow">
+            <form method="post">
+                <div class="modal-header border-bottom-0"><h1 class="modal-title fs-7">Удалить?</h1>
+                    <a href="{% url 'blog:blog_detail' blog.pk %}" type="button" class="btn-close"
+                       data-bs-dismiss="modal" aria-label="Close"></a>
+                </div>
+                <div class="modal-body py-0">
+                    <p>Вы действительно хотите удалить статью: "{{ object.title }}"?</p>
+                    <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    </div>
+                </div>
+                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                    <button type="submit" class="btn btn-lg btn-primary">Удалить</button>
+                    <a class="btn btn-lg btn-secondary" href="{% url 'blog:blog_detail' blog.pk %}"
+                       data-bs-dismiss="modal">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

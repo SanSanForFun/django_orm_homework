@@ -10,21 +10,36 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 class BlogListView(ListView):
     model = Blog
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(views_counter__gt=1)
+
 
 class BlogDetailView(DetailView):
     model = Blog
 
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.views_counter += 1
+        self.object.save()
+        return self.object
+
+
+
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ('title', 'content', 'created_at', 'image', 'views_counter')
+    fields = ('title', 'content', 'image')
     success_url = reverse_lazy('blog:blog_list')
 
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('title', 'content', 'created_at', 'image', 'views_counter')
+    fields = ('title', 'content', 'image')
     success_url = reverse_lazy('blog:blog_list')
+
+    def get_success_url(self):
+        return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])
 
 
 class BlogDeleteView(DeleteView):
