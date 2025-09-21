@@ -1,16 +1,18 @@
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin
-from . import views
 
+from .views import ProductDetailView, ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView
 
 app_name = 'catalog'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('home/', views.home, name='home'),
-    path('contacts/', views.contacts, name='contacts'),
+    path('', ProductListView.as_view(), name='products_list'),
+    path('products/<int:pk>', ProductDetailView.as_view(), name='products_detail'),
+    path('products/create', ProductCreateView.as_view(), name='products_create'),
+    path('products/update/<int:pk>', ProductUpdateView.as_view(), name='products_update'),
+    path('products/delete/<int:pk>', ProductDeleteView.as_view(), name='products_confirm_delete')
+
 ]
 
 if settings.DEBUG:
