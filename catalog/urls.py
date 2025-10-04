@@ -8,10 +8,10 @@ app_name = 'catalog'
 
 urlpatterns = [
     path('', ProductListView.as_view(), name='products_list'),
-    path('products/<int:pk>', ProductDetailView.as_view(), name='products_detail'),
-    path('products/create', ProductCreateView.as_view(), name='products_create'),
-    path('products/update/<int:pk>', ProductUpdateView.as_view(), name='products_update'),
-    path('products/delete/<int:pk>', ProductDeleteView.as_view(), name='products_confirm_delete')
+    path('<int:pk>/', ProductDetailView.as_view(), name='products_detail'),
+    path('create/', ProductCreateView.as_view(), name='products_create'),
+    path('update/<int:pk>', ProductUpdateView.as_view(), name='products_update'),
+    path('delete/<int:pk>', ProductDeleteView.as_view(), name='products_confirm_delete')
 
 ]
 
