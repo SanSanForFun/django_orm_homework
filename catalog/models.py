@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name='Имя категории')
@@ -14,12 +13,13 @@ class Category(models.Model):
         verbose_name_plural = 'категории'
         ordering = ['name']
 
+
 class Products(models.Model):
-    name = models.CharField(max_length=50, verbose_name='Имя')
-    description = models.TextField(max_length=250, verbose_name='Описание')
-    image = models.ImageField(upload_to='images/', verbose_name='Изображение')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
-    price = models.IntegerField(verbose_name='Цена')
+    name = models.CharField(unique=True, max_length=50, verbose_name='Имя')
+    description = models.TextField(max_length=250, verbose_name='Описание', blank=True, null=True)
+    image = models.ImageField(upload_to='images/', verbose_name='Изображение', blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория', blank=True, null=True)
+    price = models.IntegerField(verbose_name='Цена', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения')
 

@@ -1,6 +1,5 @@
 from django.forms import ModelForm
 from .models import Products
-from django.core.exceptions import ValidationError
 from django import forms
 
 
