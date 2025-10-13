@@ -21,12 +21,24 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     template_name = 'catalog/products_form.html'
     success_url = reverse_lazy('catalog:products_list')
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Products
     form_class = ProductForm
     template_name = 'catalog/products_form.html'
     success_url = reverse_lazy('catalog:products_list')
+
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return ProductForm
+        if user.has_perm('catalog.can_unpublish_products'):
+            return ProductModeratorForm
+        raise PermissionDenied
 
 
 class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
