@@ -21,8 +21,12 @@
                 <h1 class="fw-light">Товары</h1>
                 <p class="lead text-body-secondary">Информация о товарах</p>
                 <p>
+                    <a class="btn btn-primary" href="{% url 'catalog:products_list' %}" role="button">Главная</a>
                     <a class="btn btn-primary" href="{% url 'catalog:products_create' %}" role="button">Создать
                         продукт</a>
+                    <a class="btn btn-primary" href="{% url 'catalog:category' category_id=1 %}" role="button">Овощи</a>
+                    <a class="btn btn-primary" href="{% url 'catalog:category' category_id=2 %}"
+                       role="button">Фрукты</a>
                 </p>
             </div>
         </div>
