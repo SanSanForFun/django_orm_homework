@@ -6,37 +6,37 @@ from django import forms
 class ProductForm(ModelForm):
     class Meta:
         model = Products
-        fields = ['name', 'description', 'image', 'category', 'price']
+        fields = ['name', 'description', 'image', 'category', 'price', 'owner']
         exclude = ['created_at', 'updated_at']
 
-    def clean_name(self):
-        forbidden_words = (
-        "казино", "криптовалюта", "крипта", "биржа", "дешево", "бесплатно", "обман", "полиция", "радар")
-        cleaned_data = super().clean()
-        name = cleaned_data.get('name')
+    # def clean_name(self):
+    #     forbidden_words = (
+    #         "казино", "криптовалюта", "крипта", "биржа", "дешево", "бесплатно", "обман", "полиция", "радар")
+    #     cleaned_data = super().clean()
+    #     name = cleaned_data.get('name')
+    #
+    #     if name:
+    #         for word in forbidden_words:
+    #             if word.lower() in name.lower():
+    #                 raise forms.ValidationError(f'Название содержит запрещенное слово "{word}"')
 
-        if name:
-            for word in forbidden_words:
-                if word.lower() in name.lower():
-                    raise forms.ValidationError(f'Название содержит запрещенное слово "{word}"')
-
-    def clean_description(self):
-        forbidden_words = (
-        "казино", "криптовалюта", "крипта", "биржа", "дешево", "бесплатно", "обман", "полиция", "радар")
-        cleaned_data = super().clean()
-        description = cleaned_data.get('description')
-
-        if description:
-            for word in forbidden_words:
-                if word.lower() in description.lower():
-                    raise forms.ValidationError(f'Название содержит запрещенное слово "{word}"')
-
-    def clean_price(self):
-        cleaned_data = super().clean()
-        price = cleaned_data.get('price')
-
-        if price < 0:
-            self.add_error('price', 'Цена не может быть отрицательной')
+    # def clean_description(self):
+    #     forbidden_words = (
+    #         "казино", "криптовалюта", "крипта", "биржа", "дешево", "бесплатно", "обман", "полиция", "радар")
+    #     cleaned_data = super().clean()
+    #     description = cleaned_data.get('description')
+    #
+    #     if description:
+    #         for word in forbidden_words:
+    #             if word.lower() in description.lower():
+    #                 raise forms.ValidationError(f'Название содержит запрещенное слово "{word}"')
+    #
+    # def clean_price(self):
+    #     cleaned_data = super().clean()
+    #     price = cleaned_data.get('price')
+    #
+    #     if price < 0:
+    #         self.add_error('price', 'Цена не может быть отрицательной')
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
@@ -65,3 +65,14 @@ class ProductForm(ModelForm):
             'class': 'form-control',
             'placeholder': 'Введите цену'
         })
+
+        self.fields['owner'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Владелец'
+        })
+
+
+class ProductModeratorForm(ModelForm):
+    class Meta:
+        model = Products
+        fields = ['name', 'description', 'image', 'category', 'price', 'owner']

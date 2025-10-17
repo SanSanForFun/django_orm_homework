@@ -8,7 +8,7 @@
                     {% csrf_token %}
                     {{ form.as_p }}
                 </div>
-                <button type="submit" class="btn btn-primary" role="button">Войти</button>
+                <button type="submit" class="btn btn-primary" >Войти</button>
                 <a class="btn btn-primary" href="{% url 'catalog:products_list' %}">Отмена</a>
             </div>
         </form>
